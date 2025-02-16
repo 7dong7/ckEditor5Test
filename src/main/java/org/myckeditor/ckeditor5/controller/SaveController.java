@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.myckeditor.ckeditor5.dto.SaveDTO;
 import org.myckeditor.ckeditor5.service.ContentService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -21,5 +22,14 @@ public class SaveController {
         contentService.saveContent(saveDTO);
 
         return "redirect:/";
+    }
+
+    @PostMapping("/save/{id}")
+    public String updateLogic(SaveDTO saveDTO,
+                              @PathVariable("id") Integer contentId) {
+
+        contentService.updateOneContent(saveDTO, contentId);
+
+        return "redirect:/content/" + contentId;
     }
 }

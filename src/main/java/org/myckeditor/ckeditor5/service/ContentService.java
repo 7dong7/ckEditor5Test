@@ -8,6 +8,8 @@ import org.myckeditor.ckeditor5.repository.ContentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -30,5 +32,29 @@ public class ContentService {
         contentRepository.save(content1);
     }
 
+    public List<ContentEntity> selectContent() {
+        return contentRepository.findAll();
+    }
+
+    public ContentEntity selectOneContent(Integer contentId) {
+        return contentRepository.findById(contentId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
+    }
+
+    @Transactional
+    public void deleteOneContent(Integer contentId) {
+        contentRepository.deleteById(contentId);
+    }
+
+    @Transactional
+    public void updateOneContent(SaveDTO saveDTO, Integer contentId) {
+
+        ContentEntity content1 = new ContentEntity();
+        content1.setId(contentId);
+        content1.setTitle(saveDTO.getTitle());
+        content1.setContent(saveDTO.getContent());
+
+        contentRepository.save(content1);
+    }
 
 }

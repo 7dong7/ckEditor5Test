@@ -6,20 +6,55 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    <script src="js/ckeditor5-build-classic-39.0.1/ckeditor5-build-classic/ckeditor.js"></script>
+    <script src="/js/ckeditor5-build-classic-39.0.1/ckeditor5-build-classic/ckeditor.js"></script>
+<!--    <script src="/js/ckeditor5-44.2.0/ckeditor5/ckeditor5.umd.js"></script>-->
+<!--    <script src="/js/ckeditor5-44.2.0/ckeditor5/ckeditor5.js"></script>-->
+
 </head>
 
 <body>
-    <form action="/save" method="POST">
-        <input name="title" type="text" placeholder="제목"/><br>
-        <textarea name="content" id="content"></textarea><br>
+
+<!--    <div class="main-container">-->
+<!--        <div id="editor">-->
+<!--            <p>Hello from CKEditor 5!</p>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <script type="module">-->
+<!--        import { ClassicEditor, Essentials } from 'ckeditor5';-->
+<!--        ClassicEditor-->
+<!--                .create(document.querySelector('#editor'), {-->
+<!--                    licenseKey: 'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NzExOTk5OTksImp0aSI6ImM4ZmZiMWE3LTNlZWQtNDJiNy1hNzFiLTc0Y2JiZDBiNzJlYSIsImxpY2Vuc2VkSG9zdHMiOlsiMTI3LjAuMC4xIiwibG9jYWxob3N0IiwiMTkyLjE2OC4qLioiLCIxMC4qLiouKiIsIjE3Mi4qLiouKiIsIioudGVzdCIsIioubG9jYWxob3N0IiwiKi5sb2NhbCJdLCJ1c2FnZUVuZHBvaW50IjoiaHR0cHM6Ly9wcm94eS1ldmVudC5ja2VkaXRvci5jb20iLCJkaXN0cmlidXRpb25DaGFubmVsIjpbImNsb3VkIiwiZHJ1cGFsIl0sImxpY2Vuc2VUeXBlIjoiZGV2ZWxvcG1lbnQiLCJmZWF0dXJlcyI6WyJEUlVQIl0sInZjIjoiMDQwYTM1MjkifQ.twQCsfmPUVimt1b4pUYkKYFgg0eMiiEz2LDsAbi0Mj6Lhy48yDqvfcpicpkpf6oX2gU2iD5bFaz6lt9YWolNRw',-->
+<!--                    plugins: [ Essentials, Paragraph, Bold, Italic, Font ],-->
+<!--                    toolbar: [-->
+<!--                        'undo', 'redo', '|', 'bold', 'italic', '|',-->
+<!--                        'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'-->
+<!--                    ]-->
+<!--                })-->
+<!--                .then(editor => {-->
+<!--                    window.editor = editor;-->
+<!--                })-->
+<!--                .catch(error => {-->
+<!--                    console.error('There was a problem initializing the editor.', error);-->
+<!--                });-->
+<!--    </script>-->
+
+
+    <form action="/save{{#data}}/{{data.id}}{{/data}}" method="POST">
+        <input name="title" {{#data}}value="{{data.title}}"{{/data}} type="text" placeholder="제목"/><br>
+        <textarea name="content" id="content">{{#data}}{{data.content}}{{/data}}</textarea><br>
         <input type="submit" value="등록">
     </form>
     <script>
 
         ClassicEditor.create( document.querySelector( '#content' ), {
 
-            language: "ko"
+            language: "ko",
+
+            ckfinder : {
+
+                uploadUrl: "/image/upload",
+                withCredentials: true
+            }
         } );
 
     </script>
